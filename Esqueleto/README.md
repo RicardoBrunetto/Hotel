@@ -1,0 +1,3 @@
+## Instruções
+* Criar BasicActivity
+* 
