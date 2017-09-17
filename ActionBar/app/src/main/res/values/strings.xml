@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">ActionBar</string>
-    <string name="menu_git">GitHub</string>
-    <string name="action_git">https://github.com/RicardoBrunetto/Hotel</string>
-    <string name="hello">Olá, seja bem-vindo ao Android!</string>
-    <string name="title_activity_tela_pager">Segunda tela</string>
-    <string name="other">Bem-vindo a outro exemplo de activity!</string>
-</resources>
