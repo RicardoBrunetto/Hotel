@@ -1,7 +1,9 @@
 package com.pet.hotel.dados;
 
+import java.io.Serializable;
+
 //import java.io.Serializable;
-public class Hotel{//implements Serializable {
+public class Hotel implements Serializable {
 
     public long id;
     public String nome;

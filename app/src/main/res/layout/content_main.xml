@@ -21,6 +21,11 @@
 
     </android.support.design.widget.TabLayout>
 
+    <ListView
+        android:id="@+id/hoteisListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <view
         android:id="@+id/viewPager"
         class="android.support.v4.view.ViewPager"
