@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -26,8 +27,7 @@ import com.pet.hotel.dados.Hotel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
-        MenuItem.OnActionExpandListener {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     TabLayout tab_host_main;
     ViewPager viewPager;
@@ -97,10 +97,25 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         SearchView searchView = (SearchView)
                 searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        //searchView.setQueryHint(getString(R.string.hint_busca));
-        //searchItem.setOnActionExpandListener(this);
+        searchView.setQueryHint(getString(R.string.hint_busca));
+        //setExpandListener(searchItem);
         return true;
 
+    }
+
+    private void setExpandListener(MenuItem searchItem) {
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true; // para expandir a view
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                limparBusca();
+                return true; // para voltar ao normal
+            }
+        });
     }
 
 
@@ -115,16 +130,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return false;
     }
 
-    @Override
-    public boolean onMenuItemActionExpand(MenuItem item) {
-        return true; // para expandir a view
-    }
 
-    @Override
-    public boolean onMenuItemActionCollapse(MenuItem item) {
-        limparBusca();
-        return true; // para voltar ao normal
-    }
 
     public void buscar(String s) {
         if (s == null || s.trim().equals("")) {
@@ -150,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        //adapter.addFragment(new OneFragment(), "ONE");
         viewPager.setAdapter(adapter);
     }
 
