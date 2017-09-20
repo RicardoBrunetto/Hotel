@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.pet.hotel.R;
@@ -48,17 +47,23 @@ public class HotelAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(ctx)
-                    .inflate(R.layout.lt_adapter, null);
+                    .inflate(R.layout.hotel_list_adapter, null);
             holder = new ViewHolder();
             holder.txtNome = convertView.findViewById(R.id.txt_nome_hotel_adapter);
             holder.txtEndereco = convertView.findViewById(R.id.txt_endereco_hotel_adapter);
             convertView.setTag(holder);
+        } else{
+            holder = (ViewHolder)convertView.getTag();
         }
 
         holder.txtNome.setText(hotel.nome);
         holder.txtEndereco.setText(hotel.endereco);
 
         return convertView;
+    }
+
+    public void setItens(List lista) {
+        this.hoteis = lista;
     }
 
     static class ViewHolder {

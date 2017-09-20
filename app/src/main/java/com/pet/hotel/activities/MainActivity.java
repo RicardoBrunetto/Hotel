@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     List<Hotel> hoteis;
     HotelAdapter hotelAdapter;
     ListView hoteisListView;
-    ArrayAdapter<Hotel> hotelSearchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        hotelAdapter = new HotelAdapter(this, getHoteis());
+        hoteis = getHoteis();
+
+        hotelAdapter = new HotelAdapter(this, hoteis);
         hoteisListView.setAdapter(hotelAdapter);
         hoteisListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         SearchView searchView = (SearchView)
                 searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint(getString(R.string.hint_busca));
-        searchItem.setOnActionExpandListener(this);
+        //searchView.setQueryHint(getString(R.string.hint_busca));
+        //searchItem.setOnActionExpandListener(this);
         return true;
 
     }
@@ -134,23 +134,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         List<Hotel> hoteisEncontrados = new ArrayList<Hotel>(hoteis);
 
-        for (int i = hoteisEncontrados.size()-1; i >= 0; i--) {
+        for (int i = hoteisEncontrados.size() - 1; i >= 0; i--) {
             Hotel hotel = hoteisEncontrados.get(i);
-            if (! hotel.nome.toUpperCase().contains(s.toUpperCase())) {
+            if (!hotel.nome.toUpperCase().contains(s.toUpperCase())) {
                 hoteisEncontrados.remove(hotel);
             }
         }
-        hotelSearchAdapter = new ArrayAdapter<Hotel>(
-                this,
-                android.R.layout.simple_list_item_1,
-                hoteisEncontrados);
+        hotelAdapter.setItens(hoteisEncontrados);
+        hotelAdapter.notifyDataSetChanged();
     }
 
     public void limparBusca() {
-        hotelSearchAdapter = new ArrayAdapter<Hotel>(
-                this,
-                android.R.layout.simple_list_item_1,
-                hoteis);
+        hotelAdapter.setItens(hoteis);
     }
 
     private void setupViewPager(ViewPager viewPager) {

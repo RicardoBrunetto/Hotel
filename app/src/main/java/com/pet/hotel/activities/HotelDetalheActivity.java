@@ -20,7 +20,7 @@ public class HotelDetalheActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lt_base);
+        setContentView(R.layout.hotel_detalhe);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
