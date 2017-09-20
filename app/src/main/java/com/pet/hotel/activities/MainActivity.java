@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
+        //TODO revisar fonte de dados
         hoteis = getHoteis();
 
         hotelAdapter = new HotelAdapter(this, hoteis);
