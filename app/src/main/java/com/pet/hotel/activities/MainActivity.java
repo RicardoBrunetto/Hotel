@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(getString(R.string.hint_busca));
-        //setExpandListener(searchItem);
+        setExpandListener(searchItem);
         return true;
 
     }
@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     public void limparBusca() {
         hotelAdapter.setItens(hoteis);
+        hotelAdapter.notifyDataSetChanged();
     }
 
     private void setupViewPager(ViewPager viewPager) {
