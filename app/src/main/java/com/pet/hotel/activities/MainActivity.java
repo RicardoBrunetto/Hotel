@@ -13,21 +13,30 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.pet.hotel.R;
 import com.pet.hotel.adaptadores.HotelAdapter;
 import com.pet.hotel.dados.Hotel;
+import com.pet.hotel.dados.HotelRepositorio;
+import com.pet.hotel.dados.HotelSQLHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+
+    // ADICIONAR HOTEL
+    public static HotelRepositorio db;
+
+    public static int RESULT_UPDATE_LIST = 1;
 
     TabLayout tab_host_main;
     ViewPager viewPager;
@@ -48,10 +57,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Adicionar Hotel", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); /*Implementação posterior*/
+                // ADICIONAR HOTEL
+                Intent it = new Intent(getBaseContext(), HotelNovoActivity.class);
+                startActivityForResult(it, 1);
             }
         });
+
+        // ADICIONAR HOTEL
+        db = new HotelRepositorio(this);
 
         //TODO revisar fonte de dados
         hoteis = getHoteis();
@@ -76,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     //TODO reescrever este método
-    private List getHoteis() {
+    private List getHoteisTeste() {
         ArrayList arrayList = new ArrayList();
 
         Hotel h1 = new Hotel("Teste 1", "Rua Teste 1", 3.0f);
@@ -88,6 +101,25 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         arrayList.add(h3);
 
         return arrayList;
+    }
+
+    // ADICIONAR HOTEL
+    private List<Hotel> getHoteis() {
+        return db.buscarHotel(null);
+    }
+
+    // ADICIONAR HOTEL
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_UPDATE_LIST) {
+            hoteis = getHoteis();
+            hotelAdapter = new HotelAdapter(this, hoteis);
+            hoteisListView.setAdapter(hotelAdapter);
+            Toast.makeText(this, "Novo hotel adicionado", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -118,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
     }
-
 
     @Override
     public boolean onQueryTextSubmit(String query) {

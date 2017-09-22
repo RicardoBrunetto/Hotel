@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class HotelController {
-    public List<Hotel> geHoteisCadastrados(){
+    public List<Hotel> getHoteisCadastrados(){
         return null;
     }
 }

@@ -23,14 +23,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.pet.hotel.activities.HotelDetalheActivity"
+            android:name=".activities.HotelDetalheActivity"
             android:label="@string/title_activity_hotel_detalhe"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
-
         </activity>
+        <activity android:name=".activities.HotelNovoActivity"></activity>
     </application>
 
 </manifest>
