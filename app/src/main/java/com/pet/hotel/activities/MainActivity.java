@@ -17,11 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.pet.hotel.R;
 import com.pet.hotel.adaptadores.HotelAdapter;
+import com.pet.hotel.controladoras.HotelController;
 import com.pet.hotel.dados.Hotel;
 
 import java.util.ArrayList;
@@ -35,11 +35,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     List<Hotel> hoteis;
     HotelAdapter hotelAdapter;
     ListView hoteisListView;
+    private HotelController hotelController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // cria toolbar de suporte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         hoteisListView = (ListView) findViewById(R.id.hoteisListView);
@@ -54,15 +56,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
         //TODO revisar fonte de dados
-        hoteis = getHoteis();
+        hoteis = getHotelController().geHoteisCadastrados();
 
+        // seta os parametros para o adapter
         hotelAdapter = new HotelAdapter(this, hoteis);
         hoteisListView.setAdapter(hotelAdapter);
+
+        // implementa o click listener
         hoteisListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Hotel hotel = (Hotel) adapterView.getItemAtPosition(position);
                 Intent it = new Intent(getBaseContext(), HotelDetalheActivity.class);
+                // poe o hotel no parametro da intent
                 it.putExtra(HotelDetalheActivity.EXTRA_HOTEL, hotel);
                 startActivityForResult(it, 0);
             }
@@ -75,19 +81,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         tab_host_main.setupWithViewPager(viewPager);
     }
 
-    //TODO reescrever este método
-    private List getHoteis() {
-        ArrayList arrayList = new ArrayList();
-
-        Hotel h1 = new Hotel("Teste 1", "Rua Teste 1", 3.0f);
-        Hotel h2 = new Hotel("Teste 2", "Rua Teste 2", 2.0f);
-        Hotel h3 = new Hotel("Teste 3", "Rua Teste 3", 1.0f);
-
-        arrayList.add(h1);
-        arrayList.add(h2);
-        arrayList.add(h3);
-
-        return arrayList;
+    // padrao Singleton
+    private HotelController getHotelController() {
+        if (hotelController == null)
+            return new HotelController();
+        else
+            return hotelController;
     }
 
     @Override
@@ -97,8 +96,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView)
                 searchItem.getActionView();
+        // implementacao dos listeners de busca
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(getString(R.string.hint_busca));
+        // implementacao manual da interface de limpeza do campo de busca
         setExpandListener(searchItem);
         return true;
 
@@ -132,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
 
-
     public void buscar(String s) {
         if (s == null || s.trim().equals("")) {
             limparBusca();
@@ -143,14 +143,17 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         for (int i = hoteisEncontrados.size() - 1; i >= 0; i--) {
             Hotel hotel = hoteisEncontrados.get(i);
+            // se contem hotel ignorando case
             if (!hotel.nome.toUpperCase().contains(s.toUpperCase())) {
                 hoteisEncontrados.remove(hotel);
             }
         }
         hotelAdapter.setItens(hoteisEncontrados);
+        // notifica que mudou os itens da lista
         hotelAdapter.notifyDataSetChanged();
     }
 
+    // reseta a busca com os hoteis iniciais
     public void limparBusca() {
         hotelAdapter.setItens(hoteis);
         hotelAdapter.notifyDataSetChanged();

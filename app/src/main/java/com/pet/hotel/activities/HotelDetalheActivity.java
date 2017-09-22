@@ -2,10 +2,6 @@ package com.pet.hotel.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,10 +17,11 @@ public class HotelDetalheActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hotel_detalhe);
-
+        // cria botao de voltar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
+        // pega o hotel da intent que chamou esta activity e carrega os campos nas linhas abaixo
         Hotel hotel = (Hotel)
                 intent.getSerializableExtra(EXTRA_HOTEL);
 
