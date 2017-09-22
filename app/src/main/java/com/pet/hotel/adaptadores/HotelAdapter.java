@@ -45,6 +45,8 @@ public class HotelAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Hotel hotel = hoteis.get(position);
         ViewHolder holder = null;
+
+        // se nao ha convertView crie uma e crie seus campos
         if (convertView == null) {
             convertView = LayoutInflater.from(ctx)
                     .inflate(R.layout.hotel_list_adapter, null);
@@ -55,17 +57,18 @@ public class HotelAdapter extends BaseAdapter {
         } else{
             holder = (ViewHolder)convertView.getTag();
         }
-
+        // preencha seus campos com os dados do hotel
         holder.txtNome.setText(hotel.nome);
         holder.txtEndereco.setText(hotel.endereco);
 
         return convertView;
     }
 
-    public void setItens(List lista) {
+    public void setItens(List<Hotel> lista) {
         this.hoteis = lista;
     }
 
+    // ViewHolder para diminuir a criacao de objetos para o adapter
     static class ViewHolder {
         TextView txtNome;
         TextView txtEndereco;
