@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelRepositorio {
+public class HotelController {
 
     private HotelSQLHelper helper;
 
-    public HotelRepositorio(Context ctx) {
+    public HotelController(Context ctx) {
         helper = new HotelSQLHelper(ctx);
     }
 

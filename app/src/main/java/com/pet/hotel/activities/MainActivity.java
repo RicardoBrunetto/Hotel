@@ -3,7 +3,6 @@ package com.pet.hotel.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,28 +12,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pet.hotel.R;
 import com.pet.hotel.adaptadores.HotelAdapter;
 import com.pet.hotel.dados.Hotel;
-import com.pet.hotel.dados.HotelRepositorio;
-import com.pet.hotel.dados.HotelSQLHelper;
+import com.pet.hotel.dados.HotelController;
+import com.pet.hotel.dados.HotelDB;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-
-    // ADICIONAR HOTEL
-    public static HotelRepositorio db;
 
     public static int RESULT_UPDATE_LIST = 1;
 
@@ -64,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
         // ADICIONAR HOTEL
-        db = new HotelRepositorio(this);
+        HotelDB.initialize(this);
 
         //TODO revisar fonte de dados
         hoteis = getHoteis();
@@ -105,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     // ADICIONAR HOTEL
     private List<Hotel> getHoteis() {
-        return db.buscarHotel(null);
+        return HotelDB.getController().buscarHotel(null);
     }
 
     // ADICIONAR HOTEL

@@ -10,6 +10,7 @@ import android.widget.RatingBar;
 
 import com.pet.hotel.R;
 import com.pet.hotel.dados.Hotel;
+import com.pet.hotel.dados.HotelDB;
 
 public class HotelNovoActivity extends AppCompatActivity {
 
@@ -35,7 +36,7 @@ public class HotelNovoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Hotel novoHotel = new Hotel(etNome.getText().toString(), etEndereco.getText().toString(), rbStarts.getRating());
-                MainActivity.db.inserir(novoHotel);
+                HotelDB.getController().inserir(novoHotel);
                 setResult(MainActivity.RESULT_UPDATE_LIST);
                 finish();
             }
