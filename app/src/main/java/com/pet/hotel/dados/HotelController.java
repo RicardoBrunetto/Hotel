@@ -37,20 +37,11 @@ public class HotelController {
 
     }
 
-    public List<Hotel> buscarHotel(String filtro) {
+    public List<Hotel> buscarHotel() {
 
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String sql = "SELECT * FROM " + HotelSQLHelper.TABELA_HOTEL + " ";
-        String[] argumentos = null;
-
-        if (filtro != null) {
-            sql += " WHERE " + HotelSQLHelper.COLUNA_NOME + " LIKE ?";
-            argumentos = new String[]{filtro};
-        }
-
-        sql += "ORDER BY " + HotelSQLHelper.COLUNA_NOME;
-        Cursor cursor = db.rawQuery(sql, argumentos);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + HotelSQLHelper.TABELA_HOTEL + " ORDER BY " + HotelSQLHelper.COLUNA_NOME, null);
         List<Hotel> hoteis = new ArrayList<>();
 
         while (cursor.moveToNext()) {

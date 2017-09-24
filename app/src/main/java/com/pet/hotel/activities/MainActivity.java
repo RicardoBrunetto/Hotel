@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.pet.hotel.R;
 import com.pet.hotel.adaptadores.HotelAdapter;
 import com.pet.hotel.dados.Hotel;
-import com.pet.hotel.dados.HotelController;
 import com.pet.hotel.dados.HotelDB;
 
 import java.util.ArrayList;
@@ -56,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 startActivityForResult(it, 1);
             }
         });
+
+        deleteDatabase("dbHotel");
 
         // ADICIONAR HOTEL
         HotelDB.initialize(this);
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     // ADICIONAR HOTEL
     private List<Hotel> getHoteis() {
-        return HotelDB.getController().buscarHotel(null);
+        return HotelDB.getController().buscarHotel();
     }
 
     // ADICIONAR HOTEL
@@ -109,8 +110,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         if (resultCode == RESULT_UPDATE_LIST) {
             hoteis = getHoteis();
-            hotelAdapter = new HotelAdapter(this, hoteis);
-            hoteisListView.setAdapter(hotelAdapter);
+            hotelAdapter.setItens(hoteis);
+            hotelAdapter.notifyDataSetChanged();
             Toast.makeText(this, "Novo hotel adicionado", Toast.LENGTH_LONG).show();
         }
 

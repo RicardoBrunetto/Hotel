@@ -14,6 +14,7 @@ public class HotelSQLHelper extends SQLiteOpenHelper {
     public static final String COLUNA_NOME = "nome";
     public static final String COLUNA_ENDERECO = "endereco";
     public static final String COLUNA_ESTRELAS = "estrelas";
+    public static final String COLUNA_INTERESSE = "interesse";
 
     public HotelSQLHelper(Context ctx) {
         super(ctx, NOME_BANCO, null, VERSAO_BANCO);
@@ -24,10 +25,11 @@ public class HotelSQLHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " + TABELA_HOTEL + "(" +
-                        COLUNA_ID       + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        COLUNA_NOME     + " TEXT NOT NULL, " +
-                        COLUNA_ENDERECO + " TEXT, " +
-                        COLUNA_ESTRELAS + " REAL)"
+                        COLUNA_ID        + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COLUNA_NOME      + " TEXT NOT NULL, " +
+                        COLUNA_ENDERECO  + " TEXT, " +
+                        COLUNA_ESTRELAS  + " REAL, " +
+                        COLUNA_INTERESSE + " BOOLEAN)"
         );
 
     }
