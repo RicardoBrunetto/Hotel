@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        deleteDatabase("dbHotel");
+        //deleteDatabase("dbHotel");
 
         // ADICIONAR HOTEL
         HotelDB.initialize(this);
