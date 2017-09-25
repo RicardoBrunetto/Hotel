@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        //deleteDatabase("dbHotel");
-
         // ADICIONAR HOTEL
         HotelDB.initialize(this);
 
@@ -83,23 +81,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         tab_host_main.setupWithViewPager(viewPager);
     }
 
-    //TODO reescrever este método
-    private List getHoteisTeste() {
-
-        List<Hotel> ret = new ArrayList<>();
-
-        for (Hotel h : getHoteis()) {
-
-            if (h.interesse)
-                ret.add(h);
-
-        }
-
-        return ret;
-    }
-
     // ADICIONAR HOTEL
-    private List<Hotel> getHoteis() {
+    public static List<Hotel> getHoteis() {
         return HotelDB.getController().buscarHotel();
     }
 
