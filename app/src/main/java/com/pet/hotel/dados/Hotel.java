@@ -9,6 +9,7 @@ public class Hotel implements Serializable {
     public String nome;
     public String endereco;
     public float estrelas;
+    public boolean interesse = false;
 
     public Hotel(long id, String nome, String endereco, float estrelas) {
         this.id = id;

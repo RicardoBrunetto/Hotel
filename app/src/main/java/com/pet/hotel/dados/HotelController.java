@@ -24,6 +24,7 @@ public class HotelController {
         cv.put(HotelSQLHelper.COLUNA_NOME, hotel.nome);
         cv.put(HotelSQLHelper.COLUNA_ENDERECO, hotel.endereco);
         cv.put(HotelSQLHelper.COLUNA_ESTRELAS, hotel.estrelas);
+        cv.put(HotelSQLHelper.COLUNA_INTERESSE, hotel.interesse);
 
         long id = db.insert(HotelSQLHelper.TABELA_HOTEL, null, cv);
 
@@ -60,6 +61,21 @@ public class HotelController {
         db.close();
 
         return hoteis;
+
+    }
+
+    // Quase igual a inserir, só muda o db.update
+    public void update(Hotel hotel) {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(HotelSQLHelper.COLUNA_NOME, hotel.nome);
+        cv.put(HotelSQLHelper.COLUNA_ENDERECO, hotel.endereco);
+        cv.put(HotelSQLHelper.COLUNA_ESTRELAS, hotel.estrelas);
+        cv.put(HotelSQLHelper.COLUNA_INTERESSE, hotel.interesse);
+
+        db.update(HotelSQLHelper.TABELA_HOTEL, cv, "_id = " + hotel.id, null);
 
     }
 

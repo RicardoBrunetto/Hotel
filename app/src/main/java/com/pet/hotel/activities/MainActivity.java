@@ -85,17 +85,17 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     //TODO reescrever este método
     private List getHoteisTeste() {
-        ArrayList arrayList = new ArrayList();
 
-        Hotel h1 = new Hotel("Teste 1", "Rua Teste 1", 3.0f);
-        Hotel h2 = new Hotel("Teste 2", "Rua Teste 2", 2.0f);
-        Hotel h3 = new Hotel("Teste 3", "Rua Teste 3", 1.0f);
+        List<Hotel> ret = new ArrayList<>();
 
-        arrayList.add(h1);
-        arrayList.add(h2);
-        arrayList.add(h3);
+        for (Hotel h : getHoteis()) {
 
-        return arrayList;
+            if (h.interesse)
+                ret.add(h);
+
+        }
+
+        return ret;
     }
 
     // ADICIONAR HOTEL
